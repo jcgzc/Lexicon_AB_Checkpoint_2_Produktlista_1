@@ -84,36 +84,43 @@ namespace Lexicon_AB_Checkpoint_2_Produktlista_1
 
         static void Main(string[] args)
         {
-
-
-
             List<Product> productList = new List<Product>();
 
-            string input = "";
-            string category = "";
-            string name = "";
-            double price = 0;
-
-            InMyInventory.AddProduct(input, category, name, price, productList);
-
-            Console.WriteLine("---------------------- ");
-
-
-            List<Product> sortedProducts = new List<Product>();
-
-            sortedProducts = productList.OrderBy(x => x.Price).ToList();
-
-            double sum = 0;
-
-            foreach (var product in sortedProducts)
+            while (true)
             {
+                string input = "";
+                string category = "";
+                string name = "";
+                double price = 0;
 
-                Console.WriteLine(product);
-                sum += product.Price;
+                InMyInventory.AddProduct(input, category, name, price, productList);
 
-            }
+                Console.WriteLine("---------------------- ");
+
+
+                List<Product> sortedProducts = new List<Product>();
+
+                sortedProducts = productList.OrderBy(x => x.Price).ToList();
+
+                double sum = 0;
+
+                foreach (var product in sortedProducts)
+                {
+
+                    Console.WriteLine(product);
+                    sum += product.Price;
+
+                }
 
                 Console.WriteLine("SEK: " + sum);
+                Console.WriteLine("Do you want to enter another product?: Yes/No");
+                string newInput = Console.ReadLine().ToLower();
+                if (newInput == "no" || newInput.ToLower() == "q")
+                {
+                    break;
+                }
+
+            }
         }
 
 
@@ -181,7 +188,7 @@ namespace Lexicon_AB_Checkpoint_2_Produktlista_1
 
                 Console.WriteLine("Do you want to enter another product?: Yes/No");
                 string newInput = Console.ReadLine().ToLower();
-                if (newInput == "no")
+                if (newInput == "no" || newInput.ToLower() == "q")
                 {
                     break;
                 }
