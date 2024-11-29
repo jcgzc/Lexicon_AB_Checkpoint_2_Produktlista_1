@@ -1,5 +1,4 @@
-﻿
-//List<string> InMyInventory = new List<string>();
+﻿//List<string> InMyInventory = new List<string>();
 //List<MyInventory> InMyInventory = new List<MyInventory>(0);
 
 //InMyInventory.Add("Electronic", "Razer", 500);
@@ -76,64 +75,96 @@
 
 //}
 
-
-namespace Lexicon_AB_Checkpoint_2_Produktlista_1 { 
-
-class InMyInventory
+namespace Lexicon_AB_Checkpoint_2_Produktlista_1
 {
 
-
-    static void Main(string[] args)
+    class InMyInventory
     {
-        List<Product> productList = new List<Product>();
-
-        string input = "";
-        string category = "";
-        string name = "";
-        double price = 0;
 
 
-
-        while (true)
+        static void Main(string[] args)
         {
-            
-            Console.Write("Enter your category: ");
-            input = Console.ReadLine();
 
-            if (input.ToLower() == "q")
+
+
+            List<Product> productList = new List<Product>();
+
+            string input = "";
+            string category = "";
+            string name = "";
+            double price = 0;
+
+            InMyInventory.AddProduct(input, category, name, price, productList);
+
+            Console.WriteLine("---------------------- ");
+
+
+            List<Product> sortedProducts = new List<Product>();
+
+            sortedProducts = productList.OrderBy(x => x.Price).ToList();
+
+            double sum = 0;
+
+            foreach (var product in sortedProducts)
             {
-                break;
-            }
-            category = input;
 
-            Console.Write("Enter your product name: ");
-            input = Console.ReadLine();
+                Console.WriteLine(product);
+                sum += product.Price;
 
-            if (input.ToLower() == "q")
-            {
-                break;
             }
-            name = input;
+
+                Console.WriteLine("SEK: " + sum);
+        }
+
+
+        public static void AddProduct(string input, string category, string name, double price, List<Product> productList)
+        {
 
             while (true)
             {
 
-                Console.Write("Enter your price: ");
+                Console.Write("Enter your category: ");
                 input = Console.ReadLine();
 
                 if (input.ToLower() == "q")
                 {
                     break;
                 }
+                else if (string.IsNullOrEmpty(input)) { continue; }
+                category = input;
 
-                if (double.TryParse(input, out price) && price >= 0 )
+                Console.Write("Enter your product name: ");
+                input = Console.ReadLine();
+
+                if (input.ToLower() == "q")
                 {
                     break;
                 }
+                else if (string.IsNullOrEmpty(input)) { continue; }
+                name = input;
 
-            }
 
 
+                //checks if it a q or a string then tryparse input into a double
+                while (true)
+                {
+
+                    Console.Write("Enter your price: ");
+                    input = Console.ReadLine();
+
+                    if (input.ToLower() == "q")
+                    {
+                        break;
+
+                    }
+                    else if (string.IsNullOrEmpty(input)) { continue; }
+
+                    if (double.TryParse(input, out price) && price >= 0)
+                    {
+                        break;
+                    }
+
+                }
                 //Console.ForegroundColor = ConsoleColor.Green;
                 //Console.WriteLine("The product was successfully added!");
                 ////The product was successfully added!
@@ -142,9 +173,6 @@ class InMyInventory
                 //Console.WriteLine("Enter your category: " + category);
                 //Console.WriteLine("Enter your product name: " + name);
                 //Console.WriteLine("Enter your price: " + price);
-
-
-
 
                 //Console.ReadKey();
 
@@ -157,19 +185,11 @@ class InMyInventory
                 {
                     break;
                 }
-
+            }
 
         }
 
-            Console.WriteLine("---------------------- " );
-
-            foreach (var product in productList)
-            {
-                Console.WriteLine(product);
-            }
-
-
     }
-}
 
 }
+
